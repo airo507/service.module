@@ -1,0 +1,30 @@
+.ui-ctl-datetime {
+    margin-left: 0 !important;
+}
+.service-record-add-form-CONSENT_TO_CALL {
+    margin-top: 15px;
+}
+.sraf-footer {
+    position: relative;
+}
+.sraf-button-container {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 900;
+    box-sizing: border-box;
+    padding: 10px 0 0;
+    background-color: #fff;
+    box-shadow: 0 -2px 4px 0 rgba(0, 0, 0, .05);
+    text-align: center;
+}
+.sraf-buttons {
+    padding: 10px;
+}
+#serviceRecordAddForm {
+    padding-bottom: 4em;
+}
+.hidden {
+    display: none;
+}

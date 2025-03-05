@@ -9,18 +9,6 @@ if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) die();
 if (!CModule::IncludeModule('intranet'))
 	return;
 
-if (!\Bitrix\Intranet\Settings\Tools\ToolsManager::getInstance()->checkAvailabilityByToolId('absence'))
-{
-	$APPLICATION->IncludeComponent('bitrix:intranet.settings.tool.stub', '.default',
-		[
-			'LIMIT_CODE' => 'limit_office_absence_off',
-			'MODULE' => 'intranet',
-			'SOURCE' => 'absence'
-		]
-	);
-
-	return;
-}
 
 $arParams['VIEW_START'] = isset($arParams['VIEW_START']) ? $arParams['VIEW_START'] : 'month';
 if (!isset($arParams['FIRST_DAY']))

@@ -2,6 +2,8 @@
 
 namespace Riat\Service\Install;
 
+use Bitrix\Iblock\IblockTable;
+
 class Userfield
 {
     public function add()
@@ -13,8 +15,22 @@ class Userfield
         }
     }
 
+    public function getIblockIds(): array
+    {
+        $createdIbs = IblockTable::getList([
+            'select' => ['ID', 'CODE'],
+            'filter' => ['CODE' => ['service_record', 'cars_posts']]
+        ]);
+        $result = [];
+        while ($ib = $createdIbs->fetch()) {
+            $result[$ib['CODE']] = $ib['ID'];
+        }
+        return $result;
+    }
+
     public function getUserFields()
     {
+        $iBlocks = $this->getIblockIds();
         return [
           [
               'ENTITY_ID' => 'CRM_DEAL',
@@ -224,7 +240,7 @@ class Userfield
                   array (
                       'DISPLAY' => 'LIST',
                       'LIST_HEIGHT' => 1,
-                      'IBLOCK_ID' => 'service_centr:cars_posts',
+                      'IBLOCK_ID' => $iBlocks['cars_posts'],
                       'DEFAULT_VALUE' => '',
                       'ACTIVE_FILTER' => 'N',
                   ),
@@ -739,7 +755,7 @@ class Userfield
                   array (
                       'DISPLAY' => 'LIST',
                       'LIST_HEIGHT' => 1,
-                      'IBLOCK_ID' => 'service_centr:service_record',
+                      'IBLOCK_ID' => $iBlocks['service_record'],
                       'DEFAULT_VALUE' => '',
                       'ACTIVE_FILTER' => 'N',
                   ),

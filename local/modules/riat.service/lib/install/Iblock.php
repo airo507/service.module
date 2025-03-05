@@ -2,6 +2,7 @@
 
 namespace Riat\Service\Install;
 
+use Bitrix\Iblock\IblockTable;
 use Bitrix\Iblock\PropertyTable;
 use Bitrix\Main\Loader;
 use CIBlock;
@@ -24,12 +25,9 @@ class Iblock
                 $ib = new CIBlock();
                 $id = $ib->Add($iblock);
             }
-            $createdIb = \Bitrix\Iblock\IblockTable::getList([
-                 'select' => ['ID'],
-                 'filter' => ['CODE' => 'service_record']
-             ])->fetch();
-            if ($createdIb) {
-                self::$recordIblockId = $createdIb['ID'];
+            $createdIBlocks = $this->getIblockIds();
+            if ($createdIBlocks) {
+                $recordIblockId = $createdIBlocks['service_record'];
                 $propsCodes = [];
                 $propertiesExist = [];
                 foreach ($this->getIblockProperties() as $property) {
@@ -45,7 +43,7 @@ class Iblock
                     }
                     $prop = new CIBlockProperty();
                     foreach ($this->getIblockProperties() as $property) {
-                        $property['IBLOCK_ID'] = self::$recordIblockId;
+                        $property['IBLOCK_ID'] = $recordIblockId;
                         if (!in_array($property['CODE'], $propertiesExist)) {
                             $propId = $prop->Add($property);
                         }
@@ -55,6 +53,19 @@ class Iblock
 
             }
         }
+    }
+
+    public function getIblockIds(): array
+    {
+        $createdIbs = IblockTable::getList([
+            'select' => ['ID', 'CODE'],
+            'filter' => ['CODE' => ['service_record', 'cars_posts']]
+        ]);
+        $result = [];
+        while ($ib = $createdIbs->fetch()) {
+            $result[$ib['CODE']] = $ib['ID'];
+        }
+        return $result;
     }
 
     public function deleteIblocks()
@@ -83,7 +94,7 @@ class Iblock
                 $iblockCodes[] = $iblock['CODE'];
             }
             if (!empty($iblockCodes)) {
-                $existIbs = \Bitrix\Iblock\IblockTable::getList([
+                $existIbs = IblockTable::getList([
                     'select' => ['ID'],
                     'filter' => ['CODE' => $iblockCodes]
                 ])->fetchAll();
@@ -104,6 +115,7 @@ class Iblock
 
     public function getIblockProperties()
     {
+        $iBlockIds = $this->getIblockIds();
         return [
             [
                 'NAME' => 'Дата обращения',
@@ -238,7 +250,7 @@ class Iblock
                 'XML_ID' => NULL,
                 'FILE_TYPE' => '',
                 'MULTIPLE_CNT' => '5',
-                'LINK_IBLOCK_ID' => 'service_centr:cars_posts',
+                'LINK_IBLOCK_ID' => $iBlockIds['cars_posts'],
                 'WITH_DESCRIPTION' => 'N',
                 'SEARCHABLE' => 'N',
                 'FILTRABLE' => 'N',

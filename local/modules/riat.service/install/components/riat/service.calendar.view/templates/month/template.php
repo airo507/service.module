@@ -11,7 +11,7 @@ if (window.JCCalendarViewMonth)
 	jsBXAC.SetViewHandler(new JCCalendarViewMonth());
 else
 	BX.loadScript(
-		'/local/components/riat/service.calendar.view/templates/month/view.js',
+		'/bitrix/components/riat/service.calendar.view/templates/month/view.js',
 		function() {jsBXAC.SetViewHandler(new JCCalendarViewMonth())}
 	);
 </script>

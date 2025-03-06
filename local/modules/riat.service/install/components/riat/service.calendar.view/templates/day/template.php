@@ -11,7 +11,7 @@ if (window.JCCalendarViewDay)
 	jsBXAC.SetViewHandler(new JCCalendarViewDay());
 else
 	BX.loadScript(
-        '/local/components/riat/service.calendar.view/templates/day/view.js',
+        '/bitrix/components/riat/service.calendar.view/templates/day/view.js',
 		function() {jsBXAC.SetViewHandler(new JCCalendarViewDay())}
 	);
 </script>

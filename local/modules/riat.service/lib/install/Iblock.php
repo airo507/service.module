@@ -35,17 +35,20 @@ class Iblock
                 }
                 if (!empty($propsCodes)) {
                     $propsExist = PropertyTable::getList([
-                        'select' => ['CODE'],
+                        'select' => ['CODE', 'ID'],
                         'filter' => ['CODE' => $propsCodes]
                     ])->fetchAll();
+
                     foreach ($propsExist as $propExist) {
-                        $propertiesExist[] = $propExist['CODE'];
+                        $propertiesExist[$propExist['ID']] = $propExist['CODE'];
                     }
                     $prop = new CIBlockProperty();
                     foreach ($this->getIblockProperties() as $property) {
                         $property['IBLOCK_ID'] = $recordIblockId;
-                        if (!in_array($property['CODE'], $propertiesExist)) {
+                        if (!array_key_exists($property['CODE'], $propertiesExist)) {
                             $propId = $prop->Add($property);
+                        } else {
+                            $prop->Update($propertiesExist[$property['CODE']], $property);
                         }
                     }
                 }

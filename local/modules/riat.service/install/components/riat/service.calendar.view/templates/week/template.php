@@ -11,7 +11,7 @@ if (window.JCCalendarViewWeek)
 	jsBXAC.SetViewHandler(new JCCalendarViewWeek());
 else
 	BX.loadScript(
-        '/local/components/riat/service.calendar.view/templates/week/view.js',
+        '/bitrix/components/riat/service.calendar.view/templates/week/view.js',
 		function() {jsBXAC.SetViewHandler(new JCCalendarViewWeek())}
 	);
 </script>

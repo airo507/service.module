@@ -255,7 +255,7 @@ var jsBXAC = {
 
 					dateTo = DATA[i].DATA[j].DATE_ACTIVE_TO;
 
-					if (DATA[i].DATA[j].DATE_ACTIVE_FROM.valueOf() != dateTo.valueOf())
+					if (DATA[i].DATA[j].DATE_ACTIVE_FROM?.valueOf() != dateTo?.valueOf())
 					{
 						if (dateTo.getHours() + dateTo.getMinutes() + dateTo.getSeconds() > 0)
 						{
@@ -1239,7 +1239,7 @@ BX.AbsenceCalendar.Init = function(arParams)
 BX.AbsenceCalendar.ShowForm = function(arParams)
 {
 	BX.SidePanel.Instance.open(
-		'/local/tools/service.centr/queue_form.php',
+		'/bitrix/tools/service.centr/queue_form.php',
 		{
 			width: 1000,
 			cacheable: false,

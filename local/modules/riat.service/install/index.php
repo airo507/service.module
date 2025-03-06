@@ -51,7 +51,6 @@ class riat_service extends CModule
     {
         $this->UnInstallDB();
         $this->UnInstallEvents();
-        $this->UnInstallFiles();
         $iblock = new Iblock();
         $iblock->deleteIblocks();
         $this->UnRegisterEvents();
@@ -94,7 +93,4 @@ class riat_service extends CModule
         }
     }
 
-    public function InstallFiles() {
-        CopyDirFiles(dirname(__DIR__, 2) .'/'.$this->MODULE_ID.'/install/components/', Application::getDocumentRoot() . '/local/components/', true, true);
-    }
 }

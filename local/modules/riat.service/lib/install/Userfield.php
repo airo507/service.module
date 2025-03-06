@@ -3,6 +3,7 @@
 namespace Riat\Service\Install;
 
 use Bitrix\Iblock\IblockTable;
+use Bitrix\Main\UserFieldTable;
 
 class Userfield
 {
@@ -10,8 +11,20 @@ class Userfield
     {
         $ufType = new \CUserTypeEntity();
         $uFields = $this->getUserFields();
+        $fieldsNames = [];
         foreach ($uFields as $uField) {
-            $typeId = $ufType->Add($uField);
+            $fieldsNames[] = $uField['FIELD_NAME'];
+        }
+        $ufsExist = array_column(UserFieldTable::getList([
+            'select' => ['ID', 'FIELD_NAME'],
+            'filter' => ['FIELD_NAME' => $fieldsNames]
+        ])->fetchAll(), 'ID','FIELD_NAME');
+        foreach ($uFields as $uField) {
+            if (!array_key_exists($uField['FIELD_NAME'], $ufsExist)) {
+                $typeId = $ufType->Add($uField);
+            } else {
+                $ufType->Update($ufsExist[$uField['FIELD_NAME']], $uField);
+            }
         }
     }
 

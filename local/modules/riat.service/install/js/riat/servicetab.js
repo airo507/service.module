@@ -6,8 +6,8 @@ class TabServiceCentr {
 
     addButton() {
         let tabMenu = document.querySelector('.crm-entity-section-tabs')
-        let activeTabsArray = tabMenu.querySelector('.main-buttons-inner-container')
-        let productTab = activeTabsArray.querySelector('div[data-id="tab_products"]')
+        let activeTabsArray = tabMenu?.querySelector('.main-buttons-inner-container')
+        let productTab = activeTabsArray?.querySelector('div[data-id="tab_products"]')
         console.log(productTab)
         let scTabHtml = `
                 <span class="main-buttons-item-link">

@@ -76,7 +76,7 @@ function GetAbsenceDialog(absenceID)
 }
 jsBXAC.Init(
 	{
-		'LOADER': '/local/components/riat/service.calendar/ajax.php',
+		'LOADER': '/bitrix/components/riat/service.calendar/ajax.php',
 		'NAME_TEMPLATE': '<?echo CUtil::JSEscape($arParams['NAME_TEMPLATE'])?>',
 		'SERVER_TIMEZONE_OFFSET': <?echo date('Z')?>,
 		'FIRST_DAY': <?echo $arParams['FIRST_DAY']?>,

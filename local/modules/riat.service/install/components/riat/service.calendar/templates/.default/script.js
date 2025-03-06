@@ -255,7 +255,7 @@ var jsBXAC = {
 
 					dateTo = DATA[i].DATA[j].DATE_ACTIVE_TO;
 
-					if (DATA[i].DATA[j].DATE_ACTIVE_FROM?.valueOf() != dateTo?.valueOf())
+					if (DATA[i].DATA[j]?.DATE_ACTIVE_FROM?.valueOf() != dateTo?.valueOf())
 					{
 						if (dateTo.getHours() + dateTo.getMinutes() + dateTo.getSeconds() > 0)
 						{

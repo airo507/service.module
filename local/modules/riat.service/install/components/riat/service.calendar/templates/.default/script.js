@@ -239,7 +239,7 @@ var jsBXAC = {
 
 		for (var i = 0, dateTo; i < DATA.length; i++)
 		{
-			if (null != DATA[i].DATA)
+			if (DATA[i].DATA && null != DATA[i].DATA)
 			{
 				for (var j = 0; j < DATA[i].DATA.length; j++)
 				{
